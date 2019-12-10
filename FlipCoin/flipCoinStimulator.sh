@@ -5,17 +5,13 @@ echo "Welcome to the Flip Coin Stimulator"
 declare -A flipResultDict
 declare -A flipPercent
 
-function getCoinFace () {
-	echo $(( RANDOM%2 ))
-}
-
 function getFlipResult () {
 	for (( i=0;i<10;i++ ))
 	do
 		unset res
 		for (( j=0;j<$1;j++ ))
 		do
-			coinFace=$( getCoinFace )
+			coinFace=$( RANDOM%2 )
 			case $coinFace in
         			1 )
 						res="H$res";;
@@ -44,6 +40,5 @@ function main () {
 		echo "$i ${flipPercent[$i]}"
 	done | sort -k2 -nr
 }
-
 
 main
