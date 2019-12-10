@@ -1,24 +1,43 @@
 #!/bin/bash -x
 
-HEAD=0
-TAIL=0
-
-declare -A flipResultDict
-
 echo "Welcome to the Flip Coin Stimulator"
 
-for (( i=0;i<10;i++ ))
-do
-	coinFace=$(( RANDOM%2 ))
-	case $coinFace in
-        	1 )
-                	flipResultDict[((Flip$i))]="Head"
-			head=$(( $head + 1 ));;
-        	0 )
-			flipResultDict[((Flip$i))]="Tail"
-			tail=$(( $tail + 1 ));;
-esac
-done
+declare -A flipResultDict
+declare -A flipPercent
 
-echo "Head Percent: $(( $head * 10 ))"
-echo "Tail Percent: $(( $tail * 10 ))"
+function getCoinFace () {
+	echo $(( RANDOM%2 ))
+}
+
+function getFlipResult () {
+	for (( i=0;i<10;i++ ))
+	do
+		unset res
+		for (( j=0;j<$1;j++ ))
+		do
+			coinFace=$( getCoinFace )
+			case $coinFace in
+        			1 )
+						res="H$res";;
+        			0 )
+						res="T$res";;
+			esac
+		done
+		flipResultDict[$res]=$(( ${flipResultDict[$res]} + 1 ))
+	done
+}
+
+function getPercent () {
+	for index in "${!flipResultDict[@]}"
+	do
+		value1="${flipResultDict[$index]}"
+		flipPercent[(($index))]=$(( $value1 * 10 ))
+	done
+}
+
+function main () {
+	getFlipResult 1
+	getPercent
+	echo ${flipResultDict[@]}
+	echo ${flipPercent[@]}
+}
