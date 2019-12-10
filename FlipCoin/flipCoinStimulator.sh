@@ -37,6 +37,7 @@ function getPercent () {
 function main () {
 	getFlipResult 1
 	getFlipResult 2
+	getFlipResult 3
 	getPercent
 	for i in ${!flipPercent[@]}
 	do
