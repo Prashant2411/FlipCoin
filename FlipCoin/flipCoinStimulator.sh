@@ -11,7 +11,7 @@ function getFlipResult () {
 		unset res
 		for (( j=0;j<$1;j++ ))
 		do
-			coinFace=$( RANDOM%2 )
+			coinFace=$(( RANDOM%2 ))
 			case $coinFace in
         			1 )
 						res="H$res";;
