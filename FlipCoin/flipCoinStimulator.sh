@@ -30,14 +30,18 @@ function getFlipResult () {
 function getPercent () {
 	for index in "${!flipResultDict[@]}"
 	do
-		value1="${flipResultDict[$index]}"
-		flipPercent[(($index))]=$(( $value1 * 10 ))
+		flipPercent[$index]=$(( ${flipResultDict[$index]} * 10 ))
 	done
 }
 
 function main () {
 	getFlipResult 1
+	getFlipResult 2
 	getPercent
-	echo ${flipResultDict[@]}
-	echo ${flipPercent[@]}
+	for i in ${!flipPercent[@]}
+	do
+		echo "$i ${flipPercent[$i]}"
+	done | sort -k2 -nr
 }
+
+main
