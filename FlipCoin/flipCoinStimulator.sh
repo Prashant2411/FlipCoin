@@ -3,7 +3,6 @@
 echo "Welcome to the Flip Coin Stimulator"
 
 declare -A flipResultDict
-declare -A flipPercent
 
 function getFlipResult () {
 	for (( i=0;i<10;i++ ))
@@ -19,14 +18,7 @@ function getFlipResult () {
 						res="T$res";;
 			esac
 		done
-		flipResultDict[$res]=$(( ${flipResultDict[$res]} + 1 ))
-	done
-}
-
-function getPercent () {
-	for index in "${!flipResultDict[@]}"
-	do
-		flipPercent[$index]=$(( ${flipResultDict[$index]} * 10 ))
+		flipResultDict[$res]=$(( ${flipResultDict[$res]} + 1 * 10 ))
 	done
 }
 
@@ -34,10 +26,9 @@ function main () {
 	getFlipResult 1
 	getFlipResult 2
 	getFlipResult 3
-	getPercent
-	for i in ${!flipPercent[@]}
+	for i in ${!flipResultDict[@]}
 	do
-		echo "$i ${flipPercent[$i]}"
+		echo "$i ${flipResultDict[$i]}"
 	done | sort -k2 -nr
 }
 
