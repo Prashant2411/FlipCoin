@@ -5,7 +5,7 @@ echo "Welcome to the Flip Coin Stimulator"
 declare -A flipResultDict
 
 function getFlipResult () {
-	for (( i=0;i<10;i++ ))
+	for (( i=0;i<$FLIP_NUMBER;i++ ))
 	do
 		unset res
 		for (( j=0;j<$1;j++ ))
@@ -18,14 +18,14 @@ function getFlipResult () {
 						res="T$res";;
 			esac
 		done
-		flipResultDict[$res]=$(( ${flipResultDict[$res]} + 1 * 10 ))
+		flipResultDict[$res]=$(( ${flipResultDict[$res]} + 1 * 100 / 10 ))
 	done
 }
 
 function main () {
-	getFlipResult 1
-	getFlipResult 2
-	getFlipResult 3
+	read -p "Enter the number of coins to be flipped" numbOfCoins
+	echo $numbOfCoins
+	getFlipResult $numbOfCoins
 	echo "Winner is: "
 	for i in ${!flipResultDict[@]}
 	do
