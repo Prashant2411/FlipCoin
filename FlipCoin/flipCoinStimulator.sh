@@ -4,7 +4,7 @@ NO_OF_TIMES_FLIPPED=10
 
 echo "Welcome to the Flip Coin Stimulator"
 
-declare -A flipResultDict
+declare -A combinationSet
 
 function getFlipResult () {
 	for (( i=0;i<$NO_OF_TIMES_FLIPPED;i++ ))
@@ -20,18 +20,17 @@ function getFlipResult () {
 						flippedCoinResult="T$flippedCoinResult";;
 			esac
 		done
-		flipResultDict[$flippedCoinResult]=$(( ${flipResultDict[$flippedCoinResult]} + 1 * 100 / $NO_OF_TIMES_FLIPPED ))
+		combinationSet[$flippedCoinResult]=$(( ${combinationSet[$flippedCoinResult]} + 1 * 100 / $NO_OF_TIMES_FLIPPED ))
 	done
 }
 
 function main () {
-	read -p "Enter the number of coins to be flipped" numbOfCoins
-	echo $numbOfCoins
-	getFlipResult $numbOfCoins
-	echo "Winner is: "
-	for i in ${!flipResultDict[@]}
+	read -p "Enter the number of coins to be flipped" numberOfCoins
+	echo $numberOfCoins
+	getFlipResult $numberOfCoins
+	for i in ${!combinationSet[@]}
 	do
-		echo "$i ${flipResultDict[$i]}"
+		echo "$i ${combinationSet[$i]}"
 	done | sort -k2 -nr | head -1
 }
 
