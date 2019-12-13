@@ -9,18 +9,18 @@ declare -A flipResultDict
 function getFlipResult () {
 	for (( i=0;i<$NO_OF_TIMES_FLIPPED;i++ ))
 	do
-		unset res
+		unset flippedCoinResult
 		for (( j=0;j<$1;j++ ))
 		do
 			coinFace=$(( RANDOM%2 ))
 			case $coinFace in
         			1 )
-						res="H$res";;
+						flippedCoinResult="H$flippedCoinResult";;
         			0 )
-						res="T$res";;
+						flippedCoinResult="T$flippedCoinResult";;
 			esac
 		done
-		flipResultDict[$res]=$(( ${flipResultDict[$res]} + 1 * 100 / $NO_OF_TIMES_FLIPPED ))
+		flipResultDict[$flippedCoinResult]=$(( ${flipResultDict[$flippedCoinResult]} + 1 * 100 / $NO_OF_TIMES_FLIPPED ))
 	done
 }
 
