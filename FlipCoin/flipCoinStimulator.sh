@@ -26,10 +26,11 @@ function main () {
 	getFlipResult 1
 	getFlipResult 2
 	getFlipResult 3
+	echo "Winner is: "
 	for i in ${!flipResultDict[@]}
 	do
 		echo "$i ${flipResultDict[$i]}"
-	done | sort -k2 -nr
+	done | sort -k2 -nr | head -1
 }
 
 main
